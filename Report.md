@@ -1,8 +1,4 @@
-# **Viettel Digital Talent 2025 - Cloud Track - Phase 1 Final Project Report**
-
--   **Name:** Vu Dinh Ngoc Bao
--   **Track:** Cloud
--   **Mentor:** *
+# **Viettel Digital Talent 2025 - Cloud Track**
 
 ## **I. Overview**
 
@@ -25,7 +21,7 @@ The cluster was bootstrapped using **`kubeadm`** (v1.28.2). Key configuration st
 The Kubernetes cluster was successfully initialized and all components reached a stable, `Ready` state. System pods, including those for Calico CNI, CoreDNS, and the Kubernetes control plane, were confirmed to be `Running`.
 
 **Cluster Node Status:**
-![Cluster Nodes Ready]()
+![Cluster Nodes Ready](./img/kubeadm.png)
 
 ---
 
@@ -48,10 +44,10 @@ Core DevOps tools were deployed onto the cluster using **Helm**, the standard Ku
 Both ArgoCD and Jenkins were successfully deployed and became accessible through their respective `NodePort`s from a web browser.
 
 **ArgoCD UI:**
-![ArgoCD UI]()
+![ArgoCD UI](./img/argicdUI.png)
 
 **Jenkins Dashboard:**
-![Jenkins Dashboard]()
+![Jenkins Dashboard](./img/jenkin.png)
 
 ### **3.2. Application "Helmification" and GitOps Deployment**
 
@@ -70,13 +66,13 @@ A three-tier microservices application (backend, frontend, database) was package
 #### **Result**
 
 -   **ArgoCD Synchronization:** Upon applying the manifest, ArgoCD successfully pulled the configurations, deployed all application components, and achieved a `Healthy` and `Synced` state, confirming the cluster's live state matched the desired state in Git.
-    ![ArgoCD Application Synced]()
+    ![ArgoCD Application Synced](./img/argo_deploy_app.png)
 
 -   **Application Accessibility:** The application was successfully deployed and exposed. The frontend UI was accessible, and the backend API responded correctly, validating the end-to-end deployment. For webhook integration from the public internet (GitHub), **`ngrok`** was used to expose the internal Jenkins service endpoint.
     **Web UI (Frontend):**
-    ![Application Web UI]()
+    ![Application Web UI](./img/web.png)
     **API Response (Backend):**
-    ![Application API Response]()
+    ![Application API Response](./img/api.png)
 
 ### **3.3. CI/CD Pipeline Automation**
 
@@ -109,10 +105,10 @@ This pull-based GitOps model provides significant benefits:
 The CI/CD pipeline functioned seamlessly. A code change triggered the Jenkins pipeline, which successfully built and pushed a new image. The subsequent commit to the config repo was detected by ArgoCD, which then automatically rolled out the new version to the cluster without any manual intervention.
 
 **Jenkins Pipeline Stage View:**
-![Jenkins Pipeline Success]()
+![Jenkins Pipeline Success](./img/jenkin2.png)
 
 **ArgoCD Detecting and Diffing the Change:**
-![ArgoCD Diff View]()
+![ArgoCD Diff View](./img/argo-diff.png)
 
 ### **3.4. Application Monitoring with Prometheus**
 
@@ -133,7 +129,7 @@ To gain visibility into the application's performance, a monitoring solution was
 Prometheus was successfully deployed and configured. It began scraping metrics from the application pods, and the targets appeared as "UP" in the Prometheus UI, confirming that the monitoring pipeline was operational.
 
 **Prometheus Targets UI:**
-![Prometheus Targets Healthy]()
+![Prometheus Targets Healthy](./img/prometheus.png)
 
 ### **3.5. Centralized Logging with the EFK Stack**
 
@@ -154,4 +150,4 @@ For centralized log management and analysis, the **EFK Stack** (Elasticsearch, F
 After redeploying Fluentd and refreshing the index pattern in Kibana, the logs were correctly parsed. The custom application fields (`level`, `method`, `path`, etc.) appeared as distinct, searchable fields in the Kibana Discover interface, enabling powerful, field-based querying and filtering as required.
 
 **Kibana Discover UI with Parsed Log Fields:**
-![Kibana Discover with Parsed Fields]()
+![Kibana Discover with Parsed Fields](./img/kibana.png)
